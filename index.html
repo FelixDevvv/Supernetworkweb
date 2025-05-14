@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="imagenes/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperNetwork - Servidor de Minecraft Profesional</title>
+    <!-- Fuentes de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Minecraft&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0399FF;
+            --secondary: #3498db;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --accent: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a1a;
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .minecraft-font {
+            font-family: 'Minecraft', sans-serif;
+        }
+        
+        /* Estilos del encabezado */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .particles-js {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .header-content {
+            z-index: 1;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-shadow: 3px 3px 0 #000;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            margin: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: #27ae60;
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: #2980b9;
+        }
+        
+        /* Sección de características */
+        .features {
+            padding: 100px 20px;
+            background-color: var(--dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            color: var(--primary);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        /* Sección de gamemodes */
+        .gamemodes {
+            padding: 100px 20px;
+            background: url('https://laby.net/api/v3/post/image/a137b691-8886-41f8-bda1-4be39a27b2f7.avif') no-repeat center center/cover;
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        .gamemodes::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .gamemodes-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .gamemode-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .tab-btn:hover::after, .tab-btn.active::after {
+            width: 100%;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Sección de estadísticas */
+        .stats {
+            padding: 80px 20px;
+            background-color: var(--dark);
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 50px auto 0;
+        }
+        
+        .stat-item {
+            padding: 30px;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+        }
+        
+        /* Sección de staff */
+        .staff {
+            padding: 100px 20px;
+            background-color: #252525;
+        }
+        
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 50px auto 0;
+        }
+        
+        .staff-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .staff-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .staff-info {
+            padding: 20px;
+        }
+        
+        .staff-name {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .staff-role {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        /* Pie de página */
+        footer {
+            background-color: #111;
+            padding: 50px 20px;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 30px;
+            color: #777;
+        }
+        
+        /* Animaciones */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado hero -->
+    <header>
+        <div class="particles-js" id="particles-js"></div>
+        <div class="header-content">
+            <img src="https://i.ibb.co/QFtJb59w/new-logo.png" alt="SuperNetwork Logo" class="logo floating">
+            <h1 class="minecraft-font animate__animated animate__fadeInDown">SUPERNETWORK</h1>
+            <p class="tagline animate__animated animate__fadeIn animate__delay-1s">El mejor servidor de Minecraft con modos de juego únicos y una comunidad increíble</p>
+            <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                <a href="#join" class="btn">JUGAR AHORA</a>
+                <a href="#features" class="btn btn-secondary">CARACTERÍSTICAS</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de características -->
+    <section class="features" id="features">
+        <h2 class="section-title" data-aos="fade-down">NUESTRAS CARACTERÍSTICAS</h2>
+        <div class="features-grid">
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="feature-title">Protección Anti-Cheat</h3>
+                <p>Sistema avanzado de detección de hacks para un juego justo para todos.</p>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3 class="feature-title">Hardware Potente</h3>
+                <p>Servidores de alto rendimiento con 99.9% de uptime y 0 lag.</p>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Comunidad Activa</h3>
+                <p>Más de 10,000 jugadores registrados y una comunidad amigable.</p>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3 class="feature-title">Actualizaciones Constantes</h3>
+                <p>Nuevo contenido cada semana para mantener el juego fresco y emocionante.</p>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="feature-title">Soporte 24/7</h3>
+                <p>Staff disponible en todo momento para ayudar con cualquier problema.</p>
+            </div>
+            
+            <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                <div class="feature-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3 class="feature-title">Economía Balanceada</h3>
+                <p>Sistema económico justo y bien diseñado para una experiencia óptima.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de modos de juego -->
+    <section class="gamemodes" id="gamemodes">
+        <div class="gamemodes-content">
+            <h2 class="section-title" data-aos="fade-down">MODOS DE JUEGO</h2>
+            
+            <div class="gamemode-tabs">
+                <button class="tab-btn active" data-tab="survival">Survival</button>
+                <button class="tab-btn" data-tab="anarquico">Anarquico</button>
+                <button class="tab-btn" data-tab="cookie">Cookie Clicker</button>
+            </div>
+            
+            <div class="tab-content active" id="survival">
+                <div class="tab-inner" data-aos="fade-up">
+                    <h3>Survival Mejorado</h3>
+                    <p>Nuestro modo survival incluye características únicas como misiones personalizadas, un sistema de niveles avanzado, jefes especiales y economía interactiva. Construye, explora y sobrevive en un mundo generado dinámicamente con protecciones de terreno.</p>
+                    <img src="https://i.ibb.co/HfJ36C7V/minecraft-logo-icon-168974.png" alt="Survival Mode" style="max-width: 100%; border-radius: 10px; margin-top: 20px;">
+                </div>
+            </div>
+            
+            <div class="tab-content" id="anarquico">
+                <div class="tab-inner" data-aos="fade-up">
+                    <h3>Anarquia Completa</h3>
+                    <p>En este mundo despiadado, no hay reglas, no hay protecciones y no hay piedad. Todo vale: trampas, hacks permitidos (¡sí, has leído bien!), robos, griefing y batallas sin límites.</p>
+                    <img src="https://i.ibb.co/qFs31yVk/a-RC3-Ah6-400x400.png" alt="Anarquico Mode" style="max-width: 100%; border-radius: 10px; margin-top: 20px;">
+                </div>
+            </div>
+            
+            <div class="tab-content" id="cookie">
+                <div class="tab-inner" data-aos="fade-up">
+                    <h3>Cookie Clicker</h3>
+                    <p>¡Bienvenido al modo más adictivo de Minecraft! Haz clic, cosecha, mejora y repite en este juego dentro del juego donde tu obsesión por las galletas te dará poderes cósmicos.</p>
+                    <img src="https://i.ibb.co/XkdmFkpW/minecraft-cookie-clicker-server-v0-3ha2dgw880hc1.webp" alt="Cookie Clicker Mode" style="max-width: 100%; border-radius: 10px; margin-top: 20px;">
+                </div>
+            </div>
+    </section>
+
+    <!-- Sección de estadísticas -->
+    <section class="stats">
+        <h2 class="section-title" data-aos="fade-down">NUESTRA COMUNIDAD</h2>
+        <div class="stats-grid">
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Jugadores Diarios</div>
+            </div>
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Años Online</div>
+            </div>
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Modos de Juego</div>
+            </div>
+            <div class="stat-item" data-aos="zoom-in" data-aos-delay="400">
+                <div class="stat-number">247</div>
+                <div class="stat-label">Soporte Activo</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de staff -->
+    <section class="staff" id="staff">
+        <h2 class="section-title" data-aos="fade-down">NUESTRO EQUIPO</h2>
+        <div class="staff-grid">
+            <div class="staff-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="staff-info">
+                    <h3 class="staff-name">Felix</h3>
+                    <p class="staff-role">Fundador</p>
+                    <p>Encargado del desarrollo y visión general del servidor.</p>
+                </div>
+            </div>
+            
+            <div class="staff-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="staff-info">
+                    <h3 class="staff-name">Jesus</h3>
+                    <p class="staff-role">Desarrollador</p>
+                    <p>Crea plugins personalizados y características únicas.</p>
+                </div>
+            </div>
+            
+            <div class="staff-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="staff-info">
+                    <h3 class="staff-name">Jose</h3>
+                    <p class="staff-role">Administrador</p>
+                    <p>Gestiona el staff y asegura la calidad del servidor.</p>
+                </div>
+            </div>
+            
+            <div class="staff-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="staff-info">
+                    <h3 class="staff-name">???</h3>
+                    <p class="staff-role">Moderador</p>
+                    <p>Mantiene el orden y ayuda a los jugadores.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de unirse -->
+    <section class="join" id="join" style="padding: 100px 20px; text-align: center; background: linear-gradient(135deg, var(--dark), #1a1a1a);">
+        <h2 class="section-title" data-aos="fade-down">¿LISTO PARA UNIRTE?</h2>
+        <p style="max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem;" data-aos="fade-up">Conéctate ahora y comienza tu aventura en SuperNetwork</p>
+        
+        <div data-aos="zoom-in">
+            <div style="background: rgba(0,0,0,0.3); padding: 30px; border-radius: 10px; display: inline-block; margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px; color: var(--primary);">IP DEL SERVIDOR</h3>
+                <div style="background: #111; padding: 15px 30px; border-radius: 5px; font-family: monospace; font-size: 1.5rem;">
+                    play.supernetwork.online
+                </div>
+            </div>
+            <div style="margin-top: 20px;">
+                <a href="#" class="btn" style="margin: 10px;">CONECTARSE</a>
+                <a href="#" class="btn btn-secondary" style="margin: 10px;">DISCORD</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer>
+        <img src="https://i.imgur.com/logo.png" alt="MythicCraft Logo" style="height: 80px; margin-bottom: 20px;">
+        <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p class="copyright">© 2025 SuperNetwork. Todos los derechos reservados.</p>
+        <p style="margin-top: 10px; color: #777;">No afiliado con Mojang o Microsoft.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- AOS (Animate On Scroll) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Script personalizado -->
+    <script>
+        // Inicializar AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+        
+        // Configurar particles.js
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#2ecc71"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#2ecc71",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        
+        // Tabs de modos de juego
+        $(document).ready(function() {
+            $('.tab-btn').click(function() {
+                const tabId = $(this).attr('data-tab');
+                
+                $('.tab-btn').removeClass('active');
+                $(this).addClass('active');
+                
+                $('.tab-content').removeClass('active');
+                $('#' + tabId).addClass('active');
+            });
+            
+            // Contador animado
+            $('.stat-number').each(function() {
+                $(this).prop('Counter', 0).animate({
+                    Counter: $(this).text()
+                }, {
+                    duration: 2000,
+                    easing: 'swing',
+                    step: function(now) {
+                        $(this).text(Math.ceil(now));
+                    }
+                });
+            });
+        });
+        
+        // Actualizar contador de jugadores (ejemplo con conexión a API)
+        function updatePlayerCount() {
+            // Aquí iría la conexión a tu API para obtener jugadores en línea
+            // Ejemplo simulado:
+            const randomFactor = Math.floor(Math.random() * 50) - 25;
+            const newCount = 1250 + randomFactor;
+            $('#player-count').text(newCount);
+            
+            setTimeout(updatePlayerCount, 30000); // Actualizar cada 30 segundos
+        }
+        
+        updatePlayerCount();
+    </script>
+</body>
+</html>
